@@ -1,0 +1,74 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>dev.go.atlas</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
+    <name>Atlas-Helper</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="ut1221@icloud.com" url="https://github.com/cls-cloud">atlas</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+    <description><![CDATA[
+    <h2 align="center">Atlas-Helper</h2>
+
+    <hr/>
+
+    <h3>Overview</h3>
+    <p>
+        <b>Atlas-Helper</b> is a full-stack code generation plugin for IntelliJ-based IDEs.<br/>
+        It allows developers to quickly generate <b>Java</b>, <b>Golang</b>, <b>Vue</b>, and <b>Vben5</b> project code,<br/>
+        perfectly compatible with the <b>RuoYi</b> framework.<br/>
+        With one click, you can generate backend and frontend code that fits enterprise-level development standards.
+    </p>
+
+    <ul>
+        <li>Supports Java, Go, Vue, and Vben5 code generation</li>
+        <li>Perfectly integrates with RuoYi full-stack framework</li>
+        <li>Highly customizable templates and structure</li>
+        <li>Boosts full-stack development efficiency</li>
+    </ul>
+
+    <hr/>
+
+    <h3>简介</h3>
+    <p>
+        <b>Atlas-Helper</b> 是一个基于 IntelliJ 平台的全栈代码生成插件，<br/>
+        能够快速生成 <b>Java</b>、<b>Go</b>、<b>Vue</b>、<b>Vben5</b> 项目代码，<br/>
+        <b>完美适配若依（RuoYi）框架</b>，实现前后端一体化的高效开发体验。<br/>
+        通过简单的操作即可生成符合企业级规范的前后端代码，大幅提升开发速度与质量。
+    </p>
+
+    <ul>
+        <li>支持 Java、Go、Vue、Vben5 多语言代码生成</li>
+        <li>完美兼容若依全栈开发框架</li>
+        <li>模板结构可高度自定义</li>
+        <li>显著提升前后端开发效率</li>
+    </ul>
+]]></description>
+
+
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.database</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+
+    <actions>
+        <action id="dev.go.atlas.action.DatabaseAction"
+                class="dev.go.atlas.action.DatabaseAction"
+                text="Atlas-Helper"
+                description="Generate Go-Atlas backend code">
+            <add-to-group group-id="DatabaseViewPopupMenu" anchor="first" />
+        </action>
+    </actions>
+</idea-plugin>
