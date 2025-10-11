@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.go-atlas"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -28,7 +28,7 @@ dependencies {
 
     }
     implementation("org.projectlombok:lombok:1.18.34")
-    implementation("cn.hutool:hutool-ai:5.8.38")
+    implementation("cn.hutool:hutool-all:5.8.40")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 }
 
@@ -49,6 +49,12 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
         targetCompatibility = "21"
+    }
+
+    buildPlugin {
+        from(configurations.runtimeClasspath) {
+            into("lib")
+        }
     }
 }
 
