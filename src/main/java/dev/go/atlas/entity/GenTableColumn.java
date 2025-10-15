@@ -6,6 +6,8 @@ import lombok.Data;
 /**
  * 代码生成业务字段
  * 对应表字段信息，用于代码生成
+ *
+ * @author atlas
  */
 @Data
 public class GenTableColumn {

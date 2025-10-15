@@ -4,6 +4,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserFactory;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import dev.go.atlas.entity.GenTable;
 import dev.go.atlas.entity.GenTableColumn;
@@ -17,6 +18,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author atlas
+ *
+ */
 public class CodeGeneratorUI {
     @Getter
     private final JPanel container = new JPanel(new BorderLayout());
@@ -131,7 +137,7 @@ public class CodeGeneratorUI {
 
     /** 文件选择事件 */
     private void setListener(Project project) {
-        chooseBtn.addActionListener(e -> chooseOutputPath(project));
+        chooseBtn.addActionListener(e -> chooseOutputPath(outputPathField,project));
     }
     /**
      * 工具函数 - 添加标签和输入控件到网格布局
@@ -155,7 +161,7 @@ public class CodeGeneratorUI {
     /**
      * 使用 IntelliJ 原生文件选择器选择输出路径
      */
-    private void chooseOutputPath(Project project) {
+    private void chooseOutputPath(JTextField field, Project project) {
         FileChooserDescriptor descriptor = new FileChooserDescriptor(
                 false,  // chooseFiles
                 true,   // chooseFolders
@@ -172,7 +178,7 @@ public class CodeGeneratorUI {
                 .choose(project);
 
         if (files.length > 0) {
-            outputPathField.setText(files[0].getPath());
+            field.setText(files[0].getPath());
         }
     }
 
@@ -319,5 +325,18 @@ public class CodeGeneratorUI {
                 });
             }
         }
+    }
+
+    /** 参数校验 */
+    public boolean checkParams(Project project) {
+        if (authorField.getText().isEmpty()) {
+            Messages.showWarningDialog(project, "请填写 Author", "Error");
+            return true;
+        }
+        if (outputPathField.getText().isEmpty()) {
+            Messages.showWarningDialog(project, "请填写代码生成路径", "Error");
+            return true;
+        }
+        return false;
     }
 }

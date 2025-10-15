@@ -27,9 +27,10 @@ dependencies {
         bundledPlugin("com.intellij.database")
 
     }
-    implementation("org.projectlombok:lombok:1.18.34")
     implementation("cn.hutool:hutool-all:5.8.40")
+    compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
+    implementation("cn.hutool:hutool-all:5.8.40")
 }
 
 intellijPlatform {
@@ -55,6 +56,7 @@ tasks {
     buildPlugin {
         from(configurations.runtimeClasspath) {
             into("lib")
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
     }
 }

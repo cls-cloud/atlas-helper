@@ -3,7 +3,7 @@ package dev.go.atlas.constant;
 /**
  * 代码生成通用常量
  *
- * @author Lion Li
+ * @author atlas
  */
 public interface GenConstants {
 

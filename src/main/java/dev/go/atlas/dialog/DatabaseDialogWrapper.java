@@ -47,6 +47,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+/**
+ *
+ * @author atlas
+ *
+ */
 public class DatabaseDialogWrapper extends DialogWrapper {
     private final AnActionEvent e;
     private final Project project;
@@ -65,7 +70,7 @@ public class DatabaseDialogWrapper extends DialogWrapper {
 
         init();
 
-        setTitle("Generate Code Api Proto");
+        setTitle("Generate Code");
     }
 
     @Nullable
@@ -75,10 +80,13 @@ public class DatabaseDialogWrapper extends DialogWrapper {
 
         return this.ui.getContainer();
     }
-
+    private boolean validationShown = false;
     @Nullable
     protected ValidationInfo doValidate() {
-
+        if (!validationShown && this.ui.checkParams(this.project)) {
+            validationShown = true;  // 设置标记，表示已经显示过提示
+            return new ValidationInfo("校验不通过");
+        }
         return null;
     }
 
@@ -198,7 +206,6 @@ public class DatabaseDialogWrapper extends DialogWrapper {
         genTable.setDataName(dbType);
         genTable.setPackageName("dev.go.atlas.system");
         GenConfig genConfig = new GenConfig();
-        genConfig.setAuthor("atlas");
         GenUtils.initTable(genTable, genConfig);
 
 

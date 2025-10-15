@@ -7,6 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
+/**
+ *
+ * @author atlas
+ *
+ */
 public class DatabaseAction extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         DatabaseDialogWrapper dialog = new DatabaseDialogWrapper(e, e.getProject());

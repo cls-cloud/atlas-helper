@@ -2,6 +2,11 @@ package dev.go.atlas.enums;
 
 import lombok.Getter;
 
+/**
+ *
+ * @author atlas
+ *
+ */
 @Getter
 public enum QueryType {
     EQ("EQ", "="),

@@ -11,6 +11,9 @@ import java.util.List;
 /**
  * 业务表信息
  * 对应数据库中的表，用于代码生成
+ *
+ * @author atlas
+ *
  */
 @Data
 @ToString
