@@ -3,8 +3,15 @@
 <p align="center">
   🌐 <a href="https://portal.go-atlas.dev">Website</a> •
   💻 <a href="https://github.com/cls-cloud/atlas-helper">GitHub</a> •
-  🚀 <a href="https://github.com/cls-cloud/atlas-helper/wiki">Get Started</a> •
+  🚀 <a href="https://github.com/cls-cloud/atlas-helper/wiki">Get Started</a>
 </p>
+
+<a href="https://plugins.jetbrains.com/plugin/28679" target="_blank">
+  <img src="https://helper.go-atlas.cn/icon/pluginIcon.svg" width="24" height="24" style="vertical-align:middle;" />
+</a>
+<span style="vertical-align:middle; margin-left:5px;">
+  <strong>Atlas Helper</strong> - 一个方便的 IntelliJ 插件，用于生成代码和管理表配置。点击图标查看插件详情。
+</span>
 
 ---
 
