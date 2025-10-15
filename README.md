@@ -7,7 +7,7 @@
 </p>
 
 <a href="https://plugins.jetbrains.com/plugin/28679" target="_blank">
-  <img src="https://helper.go-atlas.cn/icon/pluginIcon.svg" width="24" height="24" style="vertical-align:middle;" />
+  <img src="src/main/resources/META-INF/pluginIcon.svg" width="20" height="20" style="vertical-align:middle;" />
 </a>
 <span style="vertical-align:middle; margin-left:5px;">
   <strong>Atlas Helper</strong> - 一个方便的 IntelliJ 插件，用于生成代码和管理表配置。点击图标查看插件详情。
