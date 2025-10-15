@@ -1,5 +1,7 @@
 package dev.go.atlas.dialog;
 
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.intellij.database.model.DasColumn;
@@ -69,7 +71,7 @@ public class DatabaseDialogWrapper extends DialogWrapper {
     @Nullable
     protected JComponent createCenterPanel() {
 
-        this.ui = new CodeGeneratorUI(this.genTable);
+        this.ui = new CodeGeneratorUI(this.project, this.genTable);
 
         return this.ui.getContainer();
     }
@@ -115,7 +117,7 @@ public class DatabaseDialogWrapper extends DialogWrapper {
                         }
                         Files.writeString(path, result, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                     } catch (Exception ex) {
-                        System.out.println("[ERROR]: " + ex.getMessage());
+                        System.out.println("[ERROR]: "+ ex.getMessage());
                         throw new RuntimeException("渲染模板失败，表名：" + table.getTableName());
                     }
                 }
@@ -185,6 +187,12 @@ public class DatabaseDialogWrapper extends DialogWrapper {
         String dbType = getDatabaseType(dbTable);
 
         GenTable genTable = new GenTable();
+        Snowflake snowflake = IdUtil.getSnowflake(1, 1);
+        List<Long> menuIds = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            menuIds.add(snowflake.nextId());
+        }
+        genTable.setMenuIds(menuIds);
         genTable.setTableComment(tComment);
         genTable.setTableName(tableName);
         genTable.setDataName(dbType);

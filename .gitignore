@@ -7,6 +7,8 @@ build/
 
 ### IntelliJ IDEA ###
 .idea
+.intellijPlatform
+.run
 *.iws
 *.iml
 *.ipr

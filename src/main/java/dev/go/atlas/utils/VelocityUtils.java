@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.velocity.VelocityContext;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -320,7 +321,16 @@ public class VelocityUtils {
         if (template.contains("go/desc.api.vm")) {
             fileName = StringUtils.format("{}/api/{}.api", goPath, businessName);
         }
-
+        if (!genTable.getOverwrite()) {
+            // 文件存在则加上时间或后缀避免覆盖
+            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            int dotIndex = fileName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                fileName = fileName.substring(0, dotIndex) + "_" + timestamp + fileName.substring(dotIndex);
+            } else {
+                fileName = fileName + "_" + timestamp;
+            }
+        }
         return fileName;
     }
 
