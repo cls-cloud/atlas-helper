@@ -47,3 +47,10 @@ With one click, you can generate backend and frontend code that fits enterprise-
 
 ## License
 This project is licensed under the [Apache License 2.0](LICENSE).
+
+---
+
+## Support the Author
+
+如果你觉得 **Atlas-Helper** 对你有帮助，欢迎给作者点个 ⭐️！  
+同时，你也可以看看作者的另一个项目：[RuoYi Plus Golang 版本](https://github.com/cls-cloud/atlas-zero) 🌟
