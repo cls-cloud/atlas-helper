@@ -91,7 +91,7 @@ public class DatabaseDialogWrapper extends DialogWrapper {
         if (project == null) return;
         setPkColumn(table);
         VelocityContext context = VelocityUtils.prepareContext(table);
-        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory(), table.getDataName());
+        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory(), table.getDataName(), table.getFunctionAuthor());
         ApplicationManager.getApplication().executeOnPooledThread(() -> {
             try {
                 for (String templatePath : templates) {
@@ -115,6 +115,7 @@ public class DatabaseDialogWrapper extends DialogWrapper {
                         }
                         Files.writeString(path, result, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                     } catch (Exception ex) {
+                        System.out.println("[ERROR]: " + ex.getMessage());
                         throw new RuntimeException("渲染模板失败，表名：" + table.getTableName());
                     }
                 }

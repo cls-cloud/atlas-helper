@@ -4,11 +4,14 @@ import lombok.Getter;
 
 @Getter
 public enum TemplateType {
+    RuoYiVue2("RuoYi(Vue2):curd", "ruoyi-vue2"),
+    RuoYiVue3("RuoYi(Vue3):curd", "ruoyi-vue3"),
+    RuoYiPlus("RuoYi-Plus:curd", "ruoyi-plus"),
+    RuoYiPlusTree("RuoYi-Plus:Tree", "ruoyi-plus-tree"),
     GoAtlas("GoAtlas:curd", "go-atlas"),
     GoZero("GoZero:curd", "go-zero"),
-    GoKratos("GoKratos:crud", "go-kratos"),
-    JavaCrud("Java:crud", "crud"),
-    JavaTree("Java:tree", "tree");
+    GoKratos("GoKratos:crud", "go-kratos");
+
 
     private final String label;
     private final String value;

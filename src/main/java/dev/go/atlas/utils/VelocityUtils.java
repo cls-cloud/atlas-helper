@@ -71,7 +71,7 @@ public class VelocityUtils {
         velocityContext.put("table", genTable);
         velocityContext.put("dicts", getDicts(genTable));
         setMenuVelocityContext(velocityContext, genTable);
-        if (TemplateType.JavaTree.getValue().equals(tplCategory)) {
+        if (TemplateType.RuoYiPlusTree.getValue().equals(tplCategory)) {
             setTreeVelocityContext(velocityContext, genTable);
         }
         // 判断是modal还是drawer
@@ -132,87 +132,101 @@ public class VelocityUtils {
      *
      * @return 模板列表
      */
-    public static List<String> getTemplateList(String tplCategory, String dbName) {
+    public static List<String> getTemplateList(String tplCategory, String dbName, String author) {
+        Set<String> specialAuthors = Set.of("Atlas", "Orion");
         List<String> templates = new ArrayList<>();
-        if (TemplateType.GoAtlas.getValue().equals(tplCategory)) {
-            templates.add("vm/go/desc.api.vm");
-            /**
-             * 添加vben5
-             */
-            templates.add("vm/vben5/api/index.ts.vm");
-            templates.add("vm/vben5/api/model.d.ts.vm");
-            templates.add("vm/vben5/views/data.ts.vm");
-            templates.add("vm/vben5/views/index_vben.vue.vm");
-            templates.add("vm/vben5/views/popup.vue.vm");
-        }
-        if (TemplateType.GoZero.getValue().equals(tplCategory)) {
-            templates.add("vm/go/desc.api.vm");
-        }
-        if (TemplateType.GoKratos.getValue().equals(tplCategory)) {
 
-        }
-        if (TemplateType.JavaCrud.getValue().equals(tplCategory)) {
-            templates.add("vm/java/domain.java.vm");
-            templates.add("vm/java/vo.java.vm");
-            templates.add("vm/java/bo.java.vm");
-            templates.add("vm/java/mapper.java.vm");
-            templates.add("vm/java/service.java.vm");
-            templates.add("vm/java/serviceImpl.java.vm");
-            templates.add("vm/java/controller.java.vm");
-            templates.add("vm/xml/mapper.xml.vm");
-            switch (dbName) {
-                case "oracle" -> templates.add("vm/sql/oracle/sql.vm");
-                case "postgresql" -> templates.add("vm/sql/postgres/sql.vm");
-                case "sqlserver" -> templates.add("vm/sql/sqlserver/sql.vm");
-                case null, default -> templates.add("vm/sql/sql.vm");
+        boolean includeVben5 = author != null && specialAuthors.contains(author);
+        TemplateType templateType = TemplateType.fromValue(tplCategory);
+        switch (templateType) {
+            case TemplateType.GoAtlas -> {
+                templates.add("vm/go/desc.api.vm");
+                addRuoYiPlusSqlTemplate(templates, dbName);
+                if (includeVben5) addVben5Templates(templates);
             }
-            templates.add("vm/sql/sql.vm");
-            templates.add("vm/ts/api.ts.vm");
-            templates.add("vm/ts/types.ts.vm");
-            templates.add("vm/vue/index.vue.vm");
-
-            /**
-             * 添加vben5
-             */
-            templates.add("vm/vben5/api/index.ts.vm");
-            templates.add("vm/vben5/api/model.d.ts.vm");
-            templates.add("vm/vben5/views/data.ts.vm");
-            templates.add("vm/vben5/views/index_vben.vue.vm");
-            templates.add("vm/vben5/views/popup.vue.vm");
-
-
-        }
-        if (TemplateType.JavaTree.getValue().equals(tplCategory)) {
-            templates.add("vm/java/domain.java.vm");
-            templates.add("vm/java/vo.java.vm");
-            templates.add("vm/java/bo.java.vm");
-            templates.add("vm/java/mapper.java.vm");
-            templates.add("vm/java/service.java.vm");
-            templates.add("vm/java/serviceImpl.java.vm");
-            templates.add("vm/java/controller.java.vm");
-            templates.add("vm/xml/mapper.xml.vm");
-            switch (dbName) {
-                case "oracle" -> templates.add("vm/sql/oracle/sql.vm");
-                case "postgresql" -> templates.add("vm/sql/postgres/sql.vm");
-                case "sqlserver" -> templates.add("vm/sql/sqlserver/sql.vm");
-                case null, default -> templates.add("vm/sql/sql.vm");
+            case TemplateType.GoZero -> {
+                templates.add("vm/go/desc.api.vm");
+                addRuoYiPlusSqlTemplate(templates, dbName);
             }
-            templates.add("vm/sql/sql.vm");
-            templates.add("vm/ts/api.ts.vm");
-            templates.add("vm/ts/types.ts.vm");
-            templates.add("vm/vue/index-tree.vue.vm");
-
-            /**
-             * 添加vben5
-             */
-            templates.add("vm/vben5/api/index.ts.vm");
-            templates.add("vm/vben5/api/model.d.ts.vm");
-            templates.add("vm/vben5/views/data.ts.vm");
-            templates.add("vm/vben5/views/index_vben_tree.vue.vm");
-            templates.add("vm/vben5/views/popup_tree.vue.vm");
-
+            case TemplateType.GoKratos -> { /* 暂无模板 */ }
+            case TemplateType.RuoYiPlus -> {
+                addRuoYiPlusCommonTemplates(templates);
+                addRuoYiPlusSqlTemplate(templates, dbName);
+                templates.add("vm/ruoyi-plus/vue/index.vue.vm");
+                if (includeVben5) addVben5Templates(templates);
+            }
+            case TemplateType.RuoYiPlusTree -> {
+                addRuoYiPlusCommonTemplates(templates);
+                addRuoYiPlusSqlTemplate(templates, dbName);
+                templates.add("vm/ruoyi-plus/vue/index-tree.vue.vm");
+                if (includeVben5) addVben5Templates(templates);
+            }
+            case TemplateType.RuoYiVue2 -> {
+                addRuoYiCommonTemplates(templates, TemplateType.RuoYiVue2);
+            }
+            case TemplateType.RuoYiVue3 -> {
+                addRuoYiCommonTemplates(templates, TemplateType.RuoYiVue3);
+            }
+            default -> {
+                addRuoYiPlusSqlTemplate(templates, dbName);
+            }
         }
+
         return templates;
+    }
+
+
+    private static void addRuoYiCommonTemplates(List<String> templates, TemplateType templateType) {
+        templates.add("vm/ruoyi/java/domain.java.vm");
+        templates.add("vm/ruoyi/java/mapper.java.vm");
+        templates.add("vm/ruoyi/java/service.java.vm");
+        templates.add("vm/ruoyi/java/serviceImpl.java.vm");
+        templates.add("vm/ruoyi/java/controller.java.vm");
+        templates.add("vm/ruoyi/xml/mapper.xml.vm");
+        templates.add("vm/ruoyi/sql/sql.vm");
+        templates.add("vm/ruoyi/js/api.js.vm");
+        if (templateType == TemplateType.RuoYiVue2) {
+            templates.add("vm/ruoyi/vue/index.vue.vm");
+        }else if (templateType == TemplateType.RuoYiVue3) {
+            templates.add("vm/ruoyi/vue/v3/index-tree.vue.vm");
+        }
+    }
+
+    private static void addRuoYiPlusCommonTemplates(List<String> templates) {
+        templates.addAll(List.of(
+                "vm/ruoyi-plus/java/domain.java.vm",
+                "vm/ruoyi-plus/java/vo.java.vm",
+                "vm/ruoyi-plus/java/bo.java.vm",
+                "vm/ruoyi-plus/java/mapper.java.vm",
+                "vm/ruoyi-plus/java/service.java.vm",
+                "vm/ruoyi-plus/java/serviceImpl.java.vm",
+                "vm/ruoyi-plus/java/controller.java.vm",
+                "vm/ruoyi-plus/xml/mapper.xml.vm"
+        ));
+        templates.addAll(List.of(
+                "vm/ruoyi-plus/sql/sql.vm",
+                "vm/ruoyi-plus/ts/api.ts.vm",
+                "vm/ruoyi-plus/ts/types.ts.vm"
+        ));
+    }
+
+    private static void addRuoYiPlusSqlTemplate(List<String> templates, String dbName) {
+        switch (dbName) {
+            case "oracle" -> templates.add("vm/ruoyi-plus/sql/oracle/sql.vm");
+            case "postgresql" -> templates.add("vm/ruoyi-plus/sql/postgres/sql.vm");
+            case "sqlserver" -> templates.add("vm/ruoyi-plus/sql/sqlserver/sql.vm");
+            default -> templates.add("vm/ruoyi-plus/sql/sql.vm");
+        }
+    }
+
+    private static void addVben5Templates(List<String> templates) {
+        templates.addAll(List.of(
+                "vm/vben5/api/index.ts.vm",
+                "vm/vben5/api/model.d.ts.vm",
+                "vm/vben5/views/data.ts.vm",
+                "vm/vben5/views/index_vben.vue.vm",
+                "vm/vben5/views/popup.vue.vm"
+        ));
     }
 
 
@@ -297,6 +311,10 @@ public class VelocityUtils {
         }
         if (template.contains("vm/vben5/views/popup_tree.vue.vm")) {
             fileName = StringUtils.format("{}/views/{}/{}/{}-{}.vue", vben5Path, moduleName, businessName, businessName, popupComponent);
+        }
+
+        if (template.contains("api.js.vm")) {
+            fileName = StringUtils.format("{}/api/{}/{}/index.js", vuePath, moduleName, businessName);
         }
         // ================= Go 文件 =================
         if (template.contains("go/desc.api.vm")) {

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.go-atlas"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -36,6 +36,7 @@ intellijPlatform {
     pluginConfiguration {
         ideaVersion {
             sinceBuild = "251"
+            untilBuild = "253.*"
         }
 
         changeNotes = """

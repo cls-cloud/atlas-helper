@@ -6,7 +6,6 @@ import dev.go.atlas.utils.StringUtils;
 import lombok.Data;
 import lombok.ToString;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -54,9 +53,9 @@ public class GenTable {
     private String functionName;
 
     /** 生成作者 */
-    private String functionAuthor = "atlas";
+    private String functionAuthor = "xxx";
 
-    private String email = "ut1221@icloud.com";
+    private String email = "xxx@163.com";
 
     /** 生成代码方式（0=zip压缩包，1=自定义路径） */
     private String genType;
@@ -103,7 +102,7 @@ public class GenTable {
     }
 
     public static boolean isTree(String tplCategory) {
-        return tplCategory != null && StringUtils.equals(TemplateType.JavaTree.getValue(), tplCategory);
+        return tplCategory != null && StringUtils.equals(TemplateType.RuoYiPlusTree.getValue(), tplCategory);
     }
 
     /** 判断是否为CRUD表 */
@@ -112,7 +111,7 @@ public class GenTable {
     }
 
     public static boolean isCrud(String tplCategory) {
-        return tplCategory != null && StringUtils.equals(TemplateType.JavaCrud.getValue(), tplCategory);
+        return tplCategory != null && StringUtils.equals(TemplateType.RuoYiPlusTree.getValue(), tplCategory);
     }
 
     /** 判断字段是否为系统列/基础字段 */

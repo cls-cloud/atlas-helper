@@ -210,7 +210,7 @@ public class CodeGeneratorUI {
     }
 
     private GenTable collectGenTable() {
-        GenTable table = new GenTable();
+        GenTable table = this.config;
         table.setTableName(tableNameField.getText());
         table.setTableComment(tableCommentField.getText());
         table.setClassName(classNameField.getText());
