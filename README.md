@@ -1,7 +1,7 @@
 <h1 align="center">Atlas-Helper</h1>
 
 <p align="center">
-  🌐 <a href="https://portal.go-atlas.dev">atlas-zero官网</a> •
+  🌐 <a href="https://portal.go-atlas.dev">Atlas-Zero</a> •
   💻 <a href="https://github.com/cls-cloud/atlas-helper">GitHub</a>
 </p>
 
